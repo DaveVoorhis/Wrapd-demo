@@ -1,7 +1,6 @@
 package org.reldb.wrapd.demo.mysql;
 
 import org.junit.jupiter.api.Test;
-import org.reldb.wrapd.sqldb.Database;
 
 import java.sql.SQLException;
 
