@@ -5,7 +5,6 @@ import org.reldb.wrapd.sqldb.Database;
 
 import java.sql.SQLException;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class GetDatabaseTest {
@@ -17,7 +16,7 @@ public class GetDatabaseTest {
 			database = GetDatabase.getDatabase();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			fail("Unable to connect to database " + database, e);
+			fail("Unable to connect to database.", e);
 		}
 	}
 
