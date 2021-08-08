@@ -1,0 +1,13 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.reldb:Wrapd:0.0.5-SNAPSHOT'
+    implementation 'mysql:mysql-connector-java:8.0.25'
+}

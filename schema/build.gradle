@@ -1,0 +1,10 @@
+plugins {
+    id 'org.reldb.wrapd.demo.repositories_and_dependencies_with_database'
+}
+
+task runSchemaSetup(type: JavaExec) {
+    group = "Wrapd"
+    description "Ensure that the schema is up-to-date."
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = "org.reldb.wrapd.demo.Schema"
+}

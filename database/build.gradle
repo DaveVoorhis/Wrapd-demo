@@ -1,0 +1,12 @@
+plugins {
+    id 'org.reldb.wrapd.demo.repositories_and_dependencies'
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.7.2'
+    testImplementation 'org.junit.platform:junit-platform-runner:1.7.2'
+}
+
+test {
+    useJUnitPlatform()
+}

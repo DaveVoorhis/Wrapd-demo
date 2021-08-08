@@ -1,0 +1,13 @@
+# Ignore generated content
+queries/src/main/java/org/reldb/wrapd/demo/generated/*
+
+# Intellij IDEA
+.idea/
+*.iml
+
+# Gradle
+.gradle
+*/build/
+/gradle/
+gradlew
+gradlew.bat

@@ -1,0 +1,10 @@
+plugins {
+    id 'org.reldb.wrapd.demo.repositories_and_dependencies_with_database'
+}
+
+task runQueryBuild(type: JavaExec) {
+    group = "Wrapd"
+    description = "Generate code from query definitions."
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = "org.reldb.wrapd.demo.Queries"
+}

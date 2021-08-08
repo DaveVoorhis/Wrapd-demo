@@ -1,0 +1,7 @@
+plugins {
+    id 'org.reldb.wrapd.demo.repositories_and_dependencies'
+}
+
+dependencies {
+    implementation project(':database')
+}
