@@ -11,9 +11,8 @@ public class GetDatabaseTest {
 
 	@Test
 	void verifyDatabaseConnectionSuccessful() {
-		Database database = null;
 		try {
-			database = GetDatabase.getDatabase();
+			GetDatabase.getDatabase();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			fail("Unable to connect to database.", e);
