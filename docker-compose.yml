@@ -16,7 +16,5 @@ services:
       - "3306:3306"
 
 volumes:
-  db-data-wrapd_postgresql:
-    driver: local
   db-data-wrapd_mysql:
     driver: local
