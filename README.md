@@ -1,5 +1,5 @@
-Wrapd
-=====
+Wrapd-demo
+==========
 
 Wrapd is a *SQL amplifier*, a lightweight database abstraction layer generator and schema migrator that helpfully exposes
 SQL in Java rather than hiding it.
