@@ -6,6 +6,8 @@ SQL in Java rather than hiding it.
 
 See https://wrapd.org for Wrapd documentation.
 
+The Wrapd library is hosted at https://github.com/DaveVoorhis/Wrapd.
+
 This is a simple sample application created using Wrapd. It consists of four subprojects:
 
 1. _schema_ - An illustration of automated schema management.
