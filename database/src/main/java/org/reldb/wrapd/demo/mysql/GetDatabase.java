@@ -7,12 +7,12 @@ import java.sql.SQLException;
 public class GetDatabase {
 
 	public static Database getDatabase() throws SQLException {
-		return new Database(
+		return new Database(new Pool(
 				Configuration.dbURL,
 				Configuration.dbUser,
-				Configuration.dbPassword,
-				Configuration.dbTablenamePrefix,
-				null
+				Configuration.dbPassword).getDataSource(),
+			Configuration.dbTablenamePrefix,
+			null
 		);
 	}
 
