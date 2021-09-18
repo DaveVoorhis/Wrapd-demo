@@ -10,10 +10,10 @@ The Wrapd library is hosted at https://github.com/DaveVoorhis/Wrapd.
 
 This is a simple sample application created using Wrapd. It consists of four subprojects:
 
-1. _schema_ - An illustration of automated schema management.
-2. _queries_ - An illustration of auto-generating the database abstraction layer from SQL queries.
-3. _database_ - Shared database connection information.
-4. _application_ - A simple application that uses _database_ and _queries_ to update and query the database.
+1. schema - An illustration of automated schema management.
+2. queries - An illustration of auto-generating the database abstraction layer from SQL queries.
+3. database - Shared database connection information.
+4. application - A simple application that uses _database_ and _queries_ to update and query the database.
 
 ### To build and run the Wrapd demo ###
 
@@ -23,12 +23,14 @@ database/src/main/java/org/reldb/wrapd/demo/mysql/Configuration.java as needed t
 reflect your database settings. The database subproject tests will verify database
 connectivity.
 
-1. _docker-compose up -d_ (skip if using your own MySQL server)
-2. _gradle clean_
-3. _gradle runSchemaSetup_
-4. _gradle runQueryBuild_
-5. _gradle build_
-6. _gradle run_
-7. _docker-compose down -v_ (skip if using your own MySQL server)
+```
+docker-compose up -d   # skip if using your own MySQL server
+gradle clean
+gradle runSchemaSetup
+gradle runQueryBuild
+gradle build
+gradle run
+docker-compose down -v   # skip if using your own MySQL server
+```
 
 ### Documentation and examples are a work-in-progress. Wrapd will soon be available on Maven Central. Watch this space! ###
