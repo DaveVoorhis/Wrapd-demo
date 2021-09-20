@@ -41,7 +41,7 @@ public class Queries extends QueryDefiner {
         Database db;
         try {
             db = GetDatabase.getDatabase();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             Response.printError("ERROR in Queries: main: GetDatabase.getDatabase():", e);
             return;
         }

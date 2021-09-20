@@ -19,7 +19,7 @@ This is a simple sample application created using Wrapd. It consists of four sub
 
 You either need Docker installed on your system to use the provided MySQL configuration,
 or you need an accessible MySQL server. If you're using the latter, change
-database/src/main/java/org/reldb/wrapd/demo/mysql/Configuration.java as needed to
+database/src/main/resources/db.properties to
 reflect your database settings. The database subproject tests will verify database
 connectivity.
 

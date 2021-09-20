@@ -37,7 +37,7 @@ public class Schema extends SQLSchema {
         Schema schema;
         try {
             schema = new Schema(GetDatabase.getDatabase());
-        } catch (SQLException e) {
+        } catch (Exception e) {
             Response.printError("ERROR in Schema: main: GetDatabase.getDatabase():", e);
             return;
         }

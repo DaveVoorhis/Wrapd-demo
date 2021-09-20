@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class Application {
 
-    public static void populate() throws SQLException {
+    public static void populate() throws Exception {
         var database = GetDatabase.getDatabase();
         for (var x = 1000; x < 1010; x++) {
             var tuple = new Query01Tuple();
