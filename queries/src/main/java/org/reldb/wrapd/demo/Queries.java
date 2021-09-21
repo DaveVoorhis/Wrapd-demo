@@ -21,20 +21,20 @@ public class Queries extends QueryDefiner {
         super(database, codeDirectory, packageSpec);
     }
 
-    public QueryDefinition QueryDefinition01() {
-        return new QueryDefinition("Query01", "SELECT * FROM $$tester01 WHERE x > ? AND x < ?", 3, 7);
+    public QueryDefinition QueryClearABC() {
+        return new QueryDefinition("ClearABC", "DELETE FROM $$ABC");
     }
 
-    public QueryDefinition QueryDefinition02() {
-        return new QueryDefinition("Query02", "SELECT * FROM $$tester01");
+    public QueryDefinition QueryClearXYZ() {
+        return new QueryDefinition("ClearXYZ", "DELETE FROM $$XYZ");
     }
 
-    public void QueryDefinition03() throws Exception {
-        define("Query03", "SELECT * FROM $$tester01 WHERE x > ?", 3);
+    public void QueryABCJoinXYZ() throws Exception {
+        define("ABCJoinXYZ", "SELECT * FROM $$ABC, $$XYZ WHERE x = a");
     }
 
-    public void queryDefinition04() throws Exception {
-        define("Query04", "SELECT x FROM $$tester01");
+    public void QueryABCJoinXYZRestricted() throws Exception {
+        define("ABCJoinXYZRestricted", "SELECT * FROM $$ABC, $$XYZ WHERE x = a AND x > ? AND x < ?", 2, 5);
     }
 
     public static void main(String[] args) {

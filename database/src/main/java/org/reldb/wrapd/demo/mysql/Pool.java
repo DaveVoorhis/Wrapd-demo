@@ -11,17 +11,14 @@ public class Pool {
     private DataSource dataSource;
 
     public Pool(String dbURL, String dbUser, String dbPassword) throws SQLException {
-        if (dbURL == null)
-            throw new IllegalArgumentException("dbURL must not be null");
-
-        Properties props = new Properties();
+        var dbProperties = new Properties();
         if (dbUser != null)
-            props.setProperty("user", dbUser);
+            dbProperties.setProperty("user", dbUser);
         if (dbPassword != null)
-            props.setProperty("password", dbPassword);
-
-        DriverManager.getConnection(dbURL, props).close();
-        var unpooledSource = DataSources.unpooledDataSource(dbURL, props);
+            dbProperties.setProperty("password", dbPassword);
+        // quickly verify database connection
+        DriverManager.getConnection(dbURL, dbProperties).close();
+        var unpooledSource = DataSources.unpooledDataSource(dbURL, dbProperties);
         dataSource = DataSources.pooledDataSource(unpooledSource);
     }
 

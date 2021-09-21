@@ -15,11 +15,15 @@ public class GetDatabase {
 			if (propertiesSource == null)
 				throw new Exception("Missing " + PROPERTIES_NAME);
 			properties.load(propertiesSource);
-			return new Database(new Pool(
+			var connectionPool = new Pool(
 					properties.getProperty("db.url"),
 					properties.getProperty("db.user"),
-					properties.getProperty("db.password")).getDataSource(),
-				properties.getProperty("db.tablename_prefix", ""),
+					properties.getProperty("db.password"));
+			var dataSource = connectionPool.getDataSource();
+			var tableNamePrefix = properties.getProperty("db.tablename_prefix", "");
+			return new Database(
+				dataSource,
+				tableNamePrefix,
 				null
 			);
 		}

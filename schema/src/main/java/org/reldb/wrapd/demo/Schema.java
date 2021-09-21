@@ -29,6 +29,13 @@ public class Schema extends SQLSchema {
                 schema -> {
                     getDatabase().updateAll("CREATE TABLE $$tester02 (a INT NOT NULL PRIMARY KEY, b INT NOT NULL)");
                     return Result.OK;
+                },
+                schema -> {
+                    getDatabase().updateAll("ALTER TABLE $$tester01 ADD z VARCHAR(20)");
+                    getDatabase().updateAll("ALTER TABLE $$tester02 ADD c VARCHAR(40)");
+                    getDatabase().updateAll("RENAME TABLE $$tester01 TO $$XYZ");
+                    getDatabase().updateAll("RENAME TABLE $$tester02 TO $$ABC");
+                    return Result.OK;
                 }
         };
     }
