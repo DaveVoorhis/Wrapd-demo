@@ -8,7 +8,7 @@ import org.reldb.wrapd.demo.Application;
 
 class ApplicationTest {
     @Test
-    void canRun() {
-        Application.main(null);
+    void canRun() throws Exception {
+        Application.main(new String[] {"test"});
     }
 }

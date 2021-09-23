@@ -1,62 +1,33 @@
 package org.reldb.wrapd.demo;
 
-import org.reldb.toolbox.utilities.Directory;
-import org.reldb.wrapd.demo.mysql.GetDatabase;
-import org.reldb.wrapd.response.Response;
 import org.reldb.wrapd.sqldb.Database;
 import org.reldb.wrapd.sqldb.QueryDefiner;
-import org.reldb.wrapd.sqldb.QueryDefinition;
-
-import java.sql.SQLException;
 
 public class Queries extends QueryDefiner {
     /**
-     * Create a QueryDefiner, given a Database and the directory where Tuple-derived classes will be stored.
+     * Create a QueryDefiner, given a Database and the directory where generated classes will be stored.
      *
      * @param database      Database
-     * @param codeDirectory Directory for Tuple-derived classes.
+     * @param codeDirectory Directory for generated classes.
      * @param packageSpec The package, in dotted notation, to which the generated code belongs.
      */
     public Queries(Database database, String codeDirectory, String packageSpec) {
         super(database, codeDirectory, packageSpec);
     }
 
-    public QueryDefinition QueryClearABC() {
-        return new QueryDefinition("ClearABC", "DELETE FROM $$ABC");
+    public void QueryABC() throws Exception {
+        define("ABC", "SELECT * FROM $$ABC");
     }
 
-    public QueryDefinition QueryClearXYZ() {
-        return new QueryDefinition("ClearXYZ", "DELETE FROM $$XYZ");
+    public void QueryXYZ() throws Exception {
+        define("XYZ", "SELECT * FROM $$XYZ");
     }
 
     public void QueryABCJoinXYZ() throws Exception {
         define("ABCJoinXYZ", "SELECT * FROM $$ABC, $$XYZ WHERE x = a");
     }
 
-    public void QueryABCJoinXYZRestricted() throws Exception {
-        define("ABCJoinXYZRestricted", "SELECT * FROM $$ABC, $$XYZ WHERE x = a AND x > ? AND x < ?", 2, 5);
-    }
-
-    public static void main(String[] args) {
-        Database db;
-        try {
-            db = GetDatabase.getDatabase();
-        } catch (Exception e) {
-            Response.printError("ERROR in Queries: main: GetDatabase.getDatabase():", e);
-            return;
-        }
-        var codeDirectory = "src/main/java";
-        var codePackage = "org.reldb.wrapd.demo.generated";
-        if (!Directory.chkmkdir(codeDirectory)) {
-            System.out.println("ERROR creating code directory " + codeDirectory);
-            return;
-        }
-        var queryDefinitions = new Queries(db, codeDirectory, codePackage);
-        try {
-            queryDefinitions.generate();
-        } catch (QueryDefinerException e) {
-            Response.printError("ERROR in Queries: main: queryDefinitions.generate():", e);
-        }
-        System.out.println("OK: Queries are ready.");
+    public void QueryABCJoinXYZWhere() throws Exception {
+        define("ABCJoinXYZWhere", "SELECT * FROM $$ABC, $$XYZ WHERE x = a AND x > ? AND x < ?", 2, 5);
     }
 }
