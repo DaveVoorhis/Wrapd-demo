@@ -52,7 +52,7 @@ public class Application {
             ABCJoinXYZ.query(database)
                     .forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c + " x = " + row.x + " y = " + row.y + " z = " + row.z));
             System.out.println("== ABCJoinXYZWhere (1002, 1008) ==");
-            ABCJoinXYZWhere.query(database, 1000, 1005)
+            ABCJoinXYZWhere.query(database, 1002, 1008)
                     .forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c + " x = " + row.x + " y = " + row.y + " z = " + row.z));
         } catch (Throwable t) {
             Response.printError("ERROR", t);
