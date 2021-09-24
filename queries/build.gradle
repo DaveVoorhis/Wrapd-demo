@@ -10,5 +10,5 @@ task runQueryBuild(type: JavaExec) {
     group = "Wrapd"
     description = "Generate code from query definitions."
     classpath = sourceSets.main.runtimeClasspath
-    mainClass = "org.reldb.wrapd.demo.Main"
+    mainClass = "org.reldb.wrapd.demo.Definitions"
 }
