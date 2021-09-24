@@ -2,7 +2,6 @@ package org.reldb.wrapd.demo;
 
 import org.reldb.wrapd.demo.generated.*;
 import org.reldb.wrapd.demo.mysql.GetDatabase;
-import org.reldb.wrapd.response.Response;
 import org.reldb.wrapd.sqldb.Database;
 
 public class Application {
@@ -31,38 +30,33 @@ public class Application {
         var database = GetDatabase.getDatabase();
         if (args.length == 1 && args[0].equals("test"))
             return;
-        try {
-            System.out.println("== ClearABC ==");
-            ClearABC.update(database);
-            System.out.println("== ClearXYZ ==");
-            ClearXYZ.update(database);
-            System.out.println("== populateABC ==");
-            populateABC(database);
-            System.out.println("== populateXYZ ==");
-            populateXYZ(database);
-            System.out.println("== ABC ==");
-            ABC.query(database)
-                    .forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c));
-            System.out.println("== XYZ ==");
-            XYZ.query(database)
-                    .forEach(row -> System.out.println("Row: x = " + row.x + " y = " + row.y + " z = " + row.z));
-            System.out.println("== ClearABCWhere (1007) ==");
-            ClearABCWhere.update(database, 1007);
-            System.out.println("== ABC ==");
-            ABC.query(database)
-                    .forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c));
-            System.out.println("== ABCJoinXYZ ==");
-            ABCJoinXYZ.query(database)
-                    .forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c +
-                            " x = " + row.x + " y = " + row.y + " z = " + row.z));
-            System.out.println("== ABCJoinXYZWhere (1002, 1008) ==");
-            ABCJoinXYZWhere.query(database, 1002, 1008)
-                    .forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c +
-                            " x = " + row.x + " y = " + row.y + " z = " + row.z));
-        } catch (Throwable t) {
-            Response.printError("ERROR", t);
-            t.printStackTrace();
-        }
+        System.out.println("== ClearABC ==");
+        ClearABC.update(database);
+        System.out.println("== ClearXYZ ==");
+        ClearXYZ.update(database);
+        System.out.println("== populateABC ==");
+        populateABC(database);
+        System.out.println("== populateXYZ ==");
+        populateXYZ(database);
+        System.out.println("== ABC ==");
+        ABC.query(database)
+                .forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c));
+        System.out.println("== XYZ ==");
+        XYZ.query(database)
+                .forEach(row -> System.out.println("Row: x = " + row.x + " y = " + row.y + " z = " + row.z));
+        System.out.println("== ClearABCWhere (1007) ==");
+        ClearABCWhere.update(database, 1007);
+        System.out.println("== ABC ==");
+        ABC.query(database)
+                .forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c));
+        System.out.println("== ABCJoinXYZ ==");
+        ABCJoinXYZ.query(database)
+                .forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c +
+                        " x = " + row.x + " y = " + row.y + " z = " + row.z));
+        System.out.println("== ABCJoinXYZWhere (1002, 1008) ==");
+        ABCJoinXYZWhere.query(database, 1002, 1008)
+                .forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c +
+                        " x = " + row.x + " y = " + row.y + " z = " + row.z));
     }
 
 }
