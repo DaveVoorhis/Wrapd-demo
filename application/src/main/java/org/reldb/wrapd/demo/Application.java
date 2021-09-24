@@ -47,13 +47,18 @@ public class Application {
             XYZ.query(database)
                     .forEach(row -> System.out.println("Row: x = " + row.x + " y = " + row.y + " z = " + row.z));
             System.out.println("== ClearABCWhere (1007) ==");
-            ClearABCWhere.update(database, 1002);
+            ClearABCWhere.update(database, 1007);
+            System.out.println("== ABC ==");
+            ABC.query(database)
+                    .forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c));
             System.out.println("== ABCJoinXYZ ==");
             ABCJoinXYZ.query(database)
-                    .forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c + " x = " + row.x + " y = " + row.y + " z = " + row.z));
+                    .forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c +
+                            " x = " + row.x + " y = " + row.y + " z = " + row.z));
             System.out.println("== ABCJoinXYZWhere (1002, 1008) ==");
             ABCJoinXYZWhere.query(database, 1002, 1008)
-                    .forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c + " x = " + row.x + " y = " + row.y + " z = " + row.z));
+                    .forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c +
+                            " x = " + row.x + " y = " + row.y + " z = " + row.z));
         } catch (Throwable t) {
             Response.printError("ERROR", t);
             t.printStackTrace();
