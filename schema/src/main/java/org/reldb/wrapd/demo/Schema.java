@@ -40,19 +40,12 @@ public class Schema extends SQLSchema {
         };
     }
 
-    public static void main(String[] args) {
-        Schema schema;
-        try {
-            schema = new Schema(GetDatabase.getDatabase());
-        } catch (Exception e) {
-            Response.printError("ERROR in Schema: main: GetDatabase.getDatabase():", e);
-            return;
-        }
+    public static void main(String[] args) throws Exception {
+        var schema = new Schema(GetDatabase.getDatabase());
         var result = schema.setup(new ConsoleProgressIndicator());
         if (result.isOk())
             System.out.println("OK: Schema has been set up.");
-        else {
+        else
             Response.printError("ERROR in Schema: Schema creation:", result.error);
-        }
     }
 }

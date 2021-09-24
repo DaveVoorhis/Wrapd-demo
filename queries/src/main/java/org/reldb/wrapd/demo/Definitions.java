@@ -2,7 +2,6 @@ package org.reldb.wrapd.demo;
 
 import org.reldb.toolbox.utilities.Directory;
 import org.reldb.wrapd.demo.mysql.GetDatabase;
-import org.reldb.wrapd.response.Response;
 import org.reldb.wrapd.sqldb.Database;
 import org.reldb.wrapd.sqldb.Definer;
 import org.reldb.wrapd.sqldb.UpdateDefinition;
@@ -13,23 +12,23 @@ public class Definitions extends Definer {
         super(database, codeDirectory, packageSpec);
     }
 
-    public void QueryABC() throws Exception {
+    public void QueryABC() throws Throwable {
         defineQuery("ABC", "SELECT * FROM $$ABC");
     }
 
-    public void QueryXYZ() throws Exception {
+    public void QueryXYZ() throws Throwable {
         defineQuery("XYZ", "SELECT * FROM $$XYZ");
     }
 
-    public void QueryABCJoinXYZ() throws Exception {
+    public void QueryABCJoinXYZ() throws Throwable {
         defineQuery("ABCJoinXYZ", "SELECT * FROM $$ABC, $$XYZ WHERE x = a");
     }
 
-    public void QueryABCJoinXYZWhere() throws Exception {
+    public void QueryABCJoinXYZWhere() throws Throwable {
         defineQuery("ABCJoinXYZWhere", "SELECT * FROM $$ABC, $$XYZ WHERE x = a AND x > ? AND x < ?", 2, 5);
     }
 
-    public void UpdateClearABC() throws Exception {
+    public void UpdateClearABC() throws Throwable {
         defineUpdate("ClearABC", "DELETE FROM $$ABC");
     }
 
@@ -37,18 +36,12 @@ public class Definitions extends Definer {
         return new UpdateDefinition("ClearXYZ", "DELETE FROM $$XYZ");
     }
 
-    public void UpdateClearABCWhere() throws Exception {
+    public void UpdateClearABCWhere() throws Throwable {
         defineUpdate("ClearABCWhere", "DELETE FROM $$ABC WHERE a = ?", 3);
     }
 
-    public static void main(String[] args) {
-        Database db;
-        try {
-            db = GetDatabase.getDatabase();
-        } catch (Exception e) {
-            Response.printError("ERROR in Queries: main: GetDatabase.getDatabase():", e);
-            return;
-        }
+    public static void main(String[] args) throws DefinerException, Exception {
+        var db = GetDatabase.getDatabase();
         var codeDirectory = "src/main/java";
         var codePackage = "org.reldb.wrapd.demo.generated";
         if (!Directory.chkmkdir(codeDirectory)) {
@@ -56,11 +49,7 @@ public class Definitions extends Definer {
             return;
         }
         var sqlDefinitions = new Definitions(db, codeDirectory, codePackage);
-        try {
-            sqlDefinitions.generate();
-        } catch (Definer.DefinerException e) {
-            Response.printError("ERROR in Queries: main: queryDefinitions.generate():", e);
-        }
+        sqlDefinitions.generate();
         System.out.println("OK: Queries are ready.");
     }
 
