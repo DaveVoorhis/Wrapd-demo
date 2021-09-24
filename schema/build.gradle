@@ -2,10 +2,6 @@ plugins {
     id 'org.reldb.wrapd.demo.repositories_and_dependencies_with_database'
 }
 
-dependencies {
-    implementation 'org.reldb:Toolbox:0.0.1-SNAPSHOT'
-}
-
 task runSchemaSetup(type: JavaExec) {
     group = "Wrapd"
     description "Ensure that the schema is up-to-date."
