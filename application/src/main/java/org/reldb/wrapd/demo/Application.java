@@ -8,21 +8,21 @@ public class Application {
 
     public static void populateABC(Database database) throws Exception {
         for (var i = 1000; i < 1010; i++) {
-            var tuple = new ABCTuple();
+            var tuple = new ABCTuple(database);
             tuple.a = i;
             tuple.b = i * 2;
             tuple.c = Integer.toString(i * 10);
-            tuple.insert(database, "$$ABC");
+            tuple.insert();
         }
     }
 
     public static void populateXYZ(Database database) throws Exception {
         for (var i = 1005; i < 1015; i++) {
-            var tuple = new XYZTuple();
+            var tuple = new XYZTuple(database);
             tuple.x = i;
             tuple.y = i * 2;
             tuple.z = Integer.toString(i * 100);
-            tuple.insert(database, "$$XYZ");
+            tuple.insert();
         }
     }
 
