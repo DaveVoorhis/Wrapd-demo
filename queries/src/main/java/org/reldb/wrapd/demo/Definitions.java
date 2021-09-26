@@ -4,7 +4,6 @@ import org.reldb.toolbox.utilities.Directory;
 import org.reldb.wrapd.demo.mysql.GetDatabase;
 import org.reldb.wrapd.sqldb.Database;
 import org.reldb.wrapd.sqldb.Definer;
-import org.reldb.wrapd.sqldb.UpdateDefinition;
 
 public class Definitions extends Definer {
 
@@ -12,35 +11,17 @@ public class Definitions extends Definer {
         super(database, codeDirectory, packageSpec);
     }
 
-    public void QueryABC() throws Throwable {
-        defineQuery("ABC", "SELECT * FROM $$ABC");
-    }
-
-    public void QueryXYZ() throws Throwable {
-        defineQuery("XYZ", "SELECT * FROM $$XYZ");
-    }
-
-    public void QueryABCJoinXYZ() throws Throwable {
+    void generate() throws Throwable {
+        defineTable("$$ABC");
+        defineTable("$$XYZ");
         defineQuery("ABCJoinXYZ", "SELECT * FROM $$ABC, $$XYZ WHERE x = a");
-    }
-
-    public void QueryABCJoinXYZWhere() throws Throwable {
         defineQuery("ABCJoinXYZWhere", "SELECT * FROM $$ABC, $$XYZ WHERE x = a AND x > ? AND x < ?", 2, 5);
-    }
-
-    public void UpdateClearABC() throws Throwable {
         defineUpdate("ClearABC", "DELETE FROM $$ABC");
-    }
-
-    public UpdateDefinition UpdateClearXYZ() {
-        return new UpdateDefinition("ClearXYZ", "DELETE FROM $$XYZ");
-    }
-
-    public void UpdateClearABCWhere() throws Throwable {
+        defineUpdate("ClearXYZ", "DELETE FROM $$XYZ");
         defineUpdate("ClearABCWhere", "DELETE FROM $$ABC WHERE a = ?", 3);
     }
 
-    public static void main(String[] args) throws DefinerException, Exception {
+    public static void main(String[] args) throws Throwable {
         var db = GetDatabase.getDatabase();
         var codeDirectory = "src/main/java";
         var codePackage = "org.reldb.wrapd.demo.generated";
