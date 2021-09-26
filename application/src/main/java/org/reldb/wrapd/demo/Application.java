@@ -4,6 +4,8 @@ import org.reldb.wrapd.demo.generated.*;
 import org.reldb.wrapd.demo.mysql.GetDatabase;
 import org.reldb.wrapd.sqldb.Database;
 
+import java.sql.SQLException;
+
 public class Application {
 
     public static void populateABC(Database database) throws Exception {
@@ -46,6 +48,19 @@ public class Application {
                 .forEach(row -> System.out.println("Row: x = " + row.x + " y = " + row.y + " z = " + row.z));
         System.out.println("== ClearABCWhere (1007) ==");
         ClearABCWhere.update(database, 1007);
+        System.out.println("== ABC ==");
+        ABC.query(database)
+                .forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c));
+        System.out.println("== ABC - queryForUpdate row.b += 100 ==");
+        ABC.queryForUpdate(database)
+                .forEach(row -> {
+                    row.b += 100;
+                    try {
+                        row.update();
+                    } catch (SQLException e) {
+                        System.out.println("Row update failed due to: " + e);
+                    }
+                });
         System.out.println("== ABC ==");
         ABC.query(database)
                 .forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c));
