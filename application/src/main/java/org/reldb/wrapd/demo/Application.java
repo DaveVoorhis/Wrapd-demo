@@ -43,8 +43,8 @@ public class Application {
         System.out.println("== ABC ==");
         ABC.query(database)
                 .forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c));
-        System.out.println("== XYZ ==");
-        XYZ.query(database)
+        System.out.println("== XYZ (1007) ==");
+        XYZ.query(database, 1007)
                 .forEach(row -> System.out.println("Row: x = " + row.x + " y = " + row.y + " z = " + row.z));
         System.out.println("== ClearABCWhere (1007) ==");
         ClearABCWhere.update(database, 1007);

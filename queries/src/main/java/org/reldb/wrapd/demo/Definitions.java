@@ -13,7 +13,8 @@ public class Definitions extends Definer {
 
     void generate() throws Throwable {
         defineTable("$$ABC");
-        defineTable("$$XYZ");
+        defineTable("$$XYZ", "x = ?", 22);
+        defineQueryForTable("ABCWhere", "$$ABC", "SELECT * FROM $$ABC WHERE a = ?", 22);
         defineQuery("ABCJoinXYZ", "SELECT * FROM $$ABC, $$XYZ WHERE x = a");
         defineQuery("ABCJoinXYZWhere", "SELECT * FROM $$ABC, $$XYZ WHERE x = a AND x > ? AND x < ?", 2, 5);
         defineUpdate("ClearABC", "DELETE FROM $$ABC");
