@@ -20,6 +20,8 @@ public class Definitions extends Definer {
         defineUpdate("ClearABC", "DELETE FROM $$ABC");
         defineUpdate("ClearXYZ", "DELETE FROM $$XYZ");
         defineUpdate("ClearABCWhere", "DELETE FROM $$ABC WHERE a = {aValue}", 3);
+        defineValueOf("ValueOfABCb", "SELECT b FROM $$ABC");
+        defineValueOf("ValueOfXYZz", "SELECT z FROM $$XYZ WHERE x = {xValue}", 33);
     }
 
     public static void main(String[] args) throws Throwable {
