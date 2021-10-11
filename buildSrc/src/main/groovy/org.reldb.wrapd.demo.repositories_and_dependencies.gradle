@@ -8,6 +8,6 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.reldb:Wrapd:0.0.47-SNAPSHOT'
+    implementation 'org.reldb:Wrapd:0.0.48-SNAPSHOT'
     implementation 'mysql:mysql-connector-java:8.0.25'
 }
