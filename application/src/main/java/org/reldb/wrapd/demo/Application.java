@@ -30,6 +30,7 @@ public class Application {
 
     public static void main(String[] args) throws Exception {
         var database = GetDatabase.getDatabase();
+
         if (args.length == 1 && args[0].equals("test"))
             return;
         System.out.println("== ClearABC ==");

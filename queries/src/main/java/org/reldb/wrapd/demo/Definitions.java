@@ -22,6 +22,8 @@ public class Definitions extends Definer {
         defineUpdate("ClearABCWhere", "DELETE FROM $$ABC WHERE a = {aValue}", 3);
         defineValueOf("ValueOfABCb", "SELECT b FROM $$ABC");
         defineValueOf("ValueOfXYZz", "SELECT z FROM $$XYZ WHERE x = {xValue}", 33);
+
+        emitDatabaseAbstractionLayer("DatabaseAbstractionLayer");
     }
 
     public static void main(String[] args) throws Throwable {
