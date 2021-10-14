@@ -73,7 +73,7 @@ public class Application {
                 .forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c +
                         " x = " + row.x + " y = " + row.y + " z = " + row.z));
         System.out.println("== ValueOfABCb ==");
-        System.out.println(ValueOfABCb.valueOfAll(database).get());
+        System.out.println(ValueOfABCb.valueOf(database).get());
         System.out.println("== ValueOfXYZz ==");
         System.out.println(ValueOfXYZz.valueOf(database, 1007).get());
     }
