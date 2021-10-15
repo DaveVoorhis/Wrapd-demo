@@ -28,11 +28,7 @@ public class Application {
         }
     }
 
-    public static void main(String[] args) throws Exception {
-        var database = GetDatabase.getDatabase();
-
-        if (args.length == 1 && args[0].equals("test"))
-            return;
+    public static void demo1(Database database) throws Exception {
         System.out.println("== ClearABC ==");
         ClearABC.update(database);
         System.out.println("== ClearXYZ ==");
@@ -77,6 +73,116 @@ public class Application {
         System.out.println(ValueOfABCb.valueOf(database).get());
         System.out.println("== ValueOfXYZz ==");
         System.out.println(ValueOfXYZz.valueOf(database, 1007).get());
+    }
+
+    public static void demo2(Database database) throws Exception {
+        var dal = new DatabaseAbstractionLayer(database);
+        System.out.println("== ClearABC ==");
+        dal.clearABC();
+        System.out.println("== ClearXYZ ==");
+        dal.clearXYZ();
+        System.out.println("== populateABC ==");
+        populateABC(database);
+        System.out.println("== populateXYZ ==");
+        populateXYZ(database);
+        System.out.println("== ABC ==");
+        dal.aBC().forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c));
+        System.out.println("== XYZ (1007) ==");
+        dal.xYZ(1007)
+                .forEach(row -> System.out.println("Row: x = " + row.x + " y = " + row.y + " z = " + row.z));
+        System.out.println("== ClearABCWhere (1007) ==");
+        dal.clearABCWhere(1007);
+        System.out.println("== ABC ==");
+        dal.aBC().forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c));
+        System.out.println("== ABC - queryForUpdate row.b += 100 ==");
+        dal.aBCForUpdate()
+                .forEach(row -> {
+                    row.b += 100;
+                    try {
+                        row.update();
+                    } catch (SQLException e) {
+                        System.out.println("Row update failed due to: " + e);
+                    }
+                });
+        System.out.println("== ABC ==");
+        dal.aBC().forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c));
+        System.out.println("== ABCJoinXYZ ==");
+        dal.aBCJoinXYZ()
+                .forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c +
+                        " x = " + row.x + " y = " + row.y + " z = " + row.z));
+        System.out.println("== ABCJoinXYZWhere (1002, 1008) ==");
+        dal.aBCJoinXYZWhere(1002, 1008)
+                .forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c +
+                        " x = " + row.x + " y = " + row.y + " z = " + row.z));
+        System.out.println("== ValueOfABCb ==");
+        System.out.println(dal.valueOfABCb().get());
+        System.out.println("== ValueOfXYZz ==");
+        System.out.println(dal.valueOfXYZz(1007).get());
+    }
+
+    private static class Demo3 extends DatabaseAbstractionLayer {
+        private Database database;
+
+        public Demo3(Database database) {
+            super(database);
+            this.database = database;
+        }
+
+        public void run() throws Exception {
+            System.out.println("== ClearABC ==");
+            clearABC();
+            System.out.println("== ClearXYZ ==");
+            clearXYZ();
+            System.out.println("== populateABC ==");
+            populateABC(database);
+            System.out.println("== populateXYZ ==");
+            populateXYZ(database);
+            System.out.println("== ABC ==");
+            aBC().forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c));
+            System.out.println("== XYZ (1007) ==");
+            xYZ(1007)
+                    .forEach(row -> System.out.println("Row: x = " + row.x + " y = " + row.y + " z = " + row.z));
+            System.out.println("== ClearABCWhere (1007) ==");
+            clearABCWhere(1007);
+            System.out.println("== ABC ==");
+            aBC().forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c));
+            System.out.println("== ABC - queryForUpdate row.b += 100 ==");
+            aBCForUpdate()
+                    .forEach(row -> {
+                        row.b += 100;
+                        try {
+                            row.update();
+                        } catch (SQLException e) {
+                            System.out.println("Row update failed due to: " + e);
+                        }
+                    });
+            System.out.println("== ABC ==");
+            aBC().forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c));
+            System.out.println("== ABCJoinXYZ ==");
+            aBCJoinXYZ()
+                    .forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c +
+                            " x = " + row.x + " y = " + row.y + " z = " + row.z));
+            System.out.println("== ABCJoinXYZWhere (1002, 1008) ==");
+            aBCJoinXYZWhere(1002, 1008)
+                    .forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c +
+                            " x = " + row.x + " y = " + row.y + " z = " + row.z));
+            System.out.println("== ValueOfABCb ==");
+            System.out.println(valueOfABCb().get());
+            System.out.println("== ValueOfXYZz ==");
+            System.out.println(valueOfXYZz(1007).get());
+        }
+    };
+
+    public static void main(String[] args) throws Exception {
+        var database = GetDatabase.getDatabase();
+        if (args.length == 1 && args[0].equals("test"))
+            return;
+        System.out.println("-------------------- Demo 1 --------------------");
+        demo1(database);
+        System.out.println("-------------------- Demo 2 --------------------");
+        demo2(database);
+        System.out.println("-------------------- Demo 3 --------------------");
+        new Demo3(database).run();
     }
 
 }

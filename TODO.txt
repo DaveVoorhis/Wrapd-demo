@@ -1,3 +1,2 @@
-- Add unified database abstraction layer illustrations.
 - Provide Maven demo.
 - Improve documentation.
