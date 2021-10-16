@@ -12,6 +12,8 @@ public class Definitions extends Definer {
     }
 
     void generate() throws Throwable {
+        purgeTarget();
+
         defineTable("$$ABC");
         defineTable("$$XYZ", "x = {xValue}", 22);
         defineQueryForTable("ABCWhere", "$$ABC", "SELECT * FROM $$ABC WHERE a = {aValue}", 22);
