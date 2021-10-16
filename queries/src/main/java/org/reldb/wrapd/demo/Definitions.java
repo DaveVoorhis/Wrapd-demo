@@ -16,9 +16,9 @@ public class Definitions extends Definer {
 
         defineTable("$$ABC");
         defineTable("$$XYZ", "x = {xValue}", 22);
-        defineQueryForTable("ABCWhere", "$$ABC", "SELECT * FROM $$ABC WHERE a = {aValue}", 22);
-        defineQuery("ABCJoinXYZ", "SELECT * FROM $$ABC, $$XYZ WHERE x = a");
-        defineQuery("ABCJoinXYZWhere", "SELECT * FROM $$ABC, $$XYZ WHERE x = a AND x > {lower} AND x < {higher}", 2, 5);
+        defineQueryForTable("SelectABCWhere", "$$ABC", "SELECT * FROM $$ABC WHERE a = {aValue}", 22);
+        defineQuery("JoinABCXYZ", "SELECT * FROM $$ABC, $$XYZ WHERE x = a");
+        defineQuery("JoinABCXYZWhere", "SELECT * FROM $$ABC, $$XYZ WHERE x = a AND x > {lower} AND x < {higher}", 2, 5);
         defineUpdate("ClearABC", "DELETE FROM $$ABC");
         defineUpdate("ClearXYZ", "DELETE FROM $$XYZ");
         defineUpdate("ClearABCWhere", "DELETE FROM $$ABC WHERE a = {aValue}", 3);

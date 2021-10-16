@@ -61,18 +61,20 @@ public class Application {
         System.out.println("== ABC ==");
         ABC.query(database)
                 .forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c));
-        System.out.println("== ABCJoinXYZ ==");
-        ABCJoinXYZ.query(database)
+        System.out.println("== JoinABCXYZ ==");
+        JoinABCXYZ.query(database)
                 .forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c +
                         " x = " + row.x + " y = " + row.y + " z = " + row.z));
-        System.out.println("== ABCJoinXYZWhere (1002, 1008) ==");
-        ABCJoinXYZWhere.query(database, 1002, 1008)
+        System.out.println("== JoinABCXYZWhere (1002, 1008) ==");
+        JoinABCXYZWhere.query(database, 1002, 1008)
                 .forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c +
                         " x = " + row.x + " y = " + row.y + " z = " + row.z));
         System.out.println("== ValueOfABCb ==");
-        System.out.println(ValueOfABCb.valueOf(database).get());
+        var valueOfABCb = ValueOfABCb.valueOf(database);
+        System.out.println(valueOfABCb.isPresent() ? valueOfABCb.get() : "?");
         System.out.println("== ValueOfXYZz ==");
-        System.out.println(ValueOfXYZz.valueOf(database, 1007).get());
+        var valueOfXYZz = ValueOfXYZz.valueOf(database, 1007);
+        System.out.println(valueOfXYZz.isPresent() ? valueOfXYZz.get() : "?");
     }
 
     public static void demo2(Database database) throws Exception {
@@ -106,26 +108,26 @@ public class Application {
                 });
         System.out.println("== ABC ==");
         dal.aBC().forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c));
-        System.out.println("== ABCJoinXYZ ==");
-        dal.aBCJoinXYZ()
+        System.out.println("== JoinABCXYZ ==");
+        dal.joinABCXYZ()
                 .forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c +
                         " x = " + row.x + " y = " + row.y + " z = " + row.z));
-        System.out.println("== ABCJoinXYZWhere (1002, 1008) ==");
-        dal.aBCJoinXYZWhere(1002, 1008)
+        System.out.println("== JoinABCXYZWhere (1002, 1008) ==");
+        dal.joinABCXYZWhere(1002, 1008)
                 .forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c +
                         " x = " + row.x + " y = " + row.y + " z = " + row.z));
         System.out.println("== ValueOfABCb ==");
-        System.out.println(dal.valueOfABCb().get());
+        var valueOfABCb = dal.valueOfABCb();
+        System.out.println(valueOfABCb.isPresent() ? valueOfABCb.get() : "?");
         System.out.println("== ValueOfXYZz ==");
-        System.out.println(dal.valueOfXYZz(1007).get());
+        var valueOfXYZz = dal.valueOfXYZz(1007);
+        System.out.println(valueOfXYZz.isPresent() ? valueOfXYZz.get() : "?");
     }
 
     private static class Demo3 extends DatabaseAbstractionLayer {
-        private Database database;
 
         public Demo3(Database database) {
             super(database);
-            this.database = database;
         }
 
         public void run() throws Exception {
@@ -134,9 +136,9 @@ public class Application {
             System.out.println("== ClearXYZ ==");
             clearXYZ();
             System.out.println("== populateABC ==");
-            populateABC(database);
+            populateABC(getDatabase());
             System.out.println("== populateXYZ ==");
-            populateXYZ(database);
+            populateXYZ(getDatabase());
             System.out.println("== ABC ==");
             aBC().forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c));
             System.out.println("== XYZ (1007) ==");
@@ -158,18 +160,20 @@ public class Application {
                     });
             System.out.println("== ABC ==");
             aBC().forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c));
-            System.out.println("== ABCJoinXYZ ==");
-            aBCJoinXYZ()
+            System.out.println("== JoinABCXYZ ==");
+            joinABCXYZ()
                     .forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c +
                             " x = " + row.x + " y = " + row.y + " z = " + row.z));
-            System.out.println("== ABCJoinXYZWhere (1002, 1008) ==");
-            aBCJoinXYZWhere(1002, 1008)
+            System.out.println("== JoinABCXYZWhere (1002, 1008) ==");
+            joinABCXYZWhere(1002, 1008)
                     .forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c +
                             " x = " + row.x + " y = " + row.y + " z = " + row.z));
             System.out.println("== ValueOfABCb ==");
-            System.out.println(valueOfABCb().get());
+            var valueOfABCb = valueOfABCb();
+            System.out.println(valueOfABCb.isPresent() ? valueOfABCb.get() : "?");
             System.out.println("== ValueOfXYZz ==");
-            System.out.println(valueOfXYZz(1007).get());
+            var valueOfXYZz = valueOfXYZz(1007);
+            System.out.println(valueOfXYZz.isPresent() ? valueOfXYZz.get() : "?");
         }
     };
 
