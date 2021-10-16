@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class Pool {
-    private DataSource dataSource;
+    private final DataSource dataSource;
 
     public Pool(String dbURL, String dbUser, String dbPassword) throws SQLException {
         var dbProperties = new Properties();
