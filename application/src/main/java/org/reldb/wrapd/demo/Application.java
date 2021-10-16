@@ -74,7 +74,7 @@ public class Application {
         System.out.println(valueOfABCb.isPresent() ? valueOfABCb.get() : "?");
         System.out.println("== ValueOfXYZz ==");
         var valueOfXYZz = ValueOfXYZz.valueOf(database, 1007);
-        System.out.println(valueOfXYZz.isPresent() ? valueOfXYZz.get() : "?");
+        System.out.println(valueOfXYZz.orElse("?"));
     }
 
     public static void demo2(Database database) throws Exception {
@@ -121,7 +121,7 @@ public class Application {
         System.out.println(valueOfABCb.isPresent() ? valueOfABCb.get() : "?");
         System.out.println("== ValueOfXYZz ==");
         var valueOfXYZz = dal.valueOfXYZz(1007);
-        System.out.println(valueOfXYZz.isPresent() ? valueOfXYZz.get() : "?");
+        System.out.println(valueOfXYZz.orElse("?"));
     }
 
     private static class Demo3 extends DatabaseAbstractionLayer {
@@ -172,10 +172,9 @@ public class Application {
             var valueOfABCb = valueOfABCb();
             System.out.println(valueOfABCb.isPresent() ? valueOfABCb.get() : "?");
             System.out.println("== ValueOfXYZz ==");
-            var valueOfXYZz = valueOfXYZz(1007);
-            System.out.println(valueOfXYZz.isPresent() ? valueOfXYZz.get() : "?");
+            System.out.println(valueOfXYZz(1007).orElse("?"));
         }
-    };
+    }
 
     public static void main(String[] args) throws Exception {
         var database = GetDatabase.getDatabase();
