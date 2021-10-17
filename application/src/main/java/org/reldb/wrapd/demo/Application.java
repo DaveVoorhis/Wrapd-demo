@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class Application {
 
-    public static void populateABC(Database database) throws Exception {
+    public static void populateABC(Database database) throws SQLException {
         for (var i = 1000; i < 1010; i++) {
             var tuple = new ABCTuple(database);
             tuple.a = i;
@@ -18,7 +18,7 @@ public class Application {
         }
     }
 
-    public static void populateXYZ(Database database) throws Exception {
+    public static void populateXYZ(Database database) throws SQLException {
         for (var i = 1005; i < 1015; i++) {
             var tuple = new XYZTuple(database);
             tuple.x = i;
@@ -126,8 +126,8 @@ public class Application {
 
     private static class Demo3 extends DatabaseAbstractionLayer {
 
-        public Demo3(Database database) {
-            super(database);
+        public Demo3() throws Exception {
+            super(GetDatabase.getDatabase());
         }
 
         public void run() throws Exception {
@@ -185,7 +185,7 @@ public class Application {
         System.out.println("-------------------- Demo 2 --------------------");
         demo2(database);
         System.out.println("-------------------- Demo 3 --------------------");
-        new Demo3(database).run();
+        new Demo3().run();
     }
 
 }
