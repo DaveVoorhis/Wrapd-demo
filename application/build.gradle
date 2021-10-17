@@ -4,10 +4,6 @@ plugins {
 }
 
 dependencies {
-    implementation project(':queries')
-}
-
-dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.7.2'
     testImplementation 'org.junit.platform:junit-platform-runner:1.7.2'
 }

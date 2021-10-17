@@ -1,5 +1,5 @@
 # Ignore generated content
-queries/src/main/java/org/reldb/wrapd/demo/generated/*
+application/src/main/java/org/reldb/wrapd/demo/generated/*
 
 # Intellij IDEA
 .idea/
