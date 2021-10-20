@@ -33,4 +33,4 @@ gradle run
 docker-compose down -v   # skip if using your own MySQL server
 ```
 
-### Documentation and examples are a work-in-progress. Wrapd will soon be available on Maven Central. Watch this space! ###
+### Documentation and examples are a work-in-progress. ###
