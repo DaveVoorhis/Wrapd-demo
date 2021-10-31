@@ -24,7 +24,8 @@ reflect your database settings. The database subproject tests will verify databa
 connectivity.
 
 ```
-docker-compose up -d   # skip if using your own MySQL server
+docker-compose up -d     # skip if using your own MySQL server
+sleep 10                 # give DBMS time to spool up
 gradle clean
 gradle runSchemaSetup
 gradle runQueryBuild
