@@ -33,5 +33,3 @@ gradle build
 gradle run
 docker-compose down -v   # skip if using your own MySQL server
 ```
-
-### Documentation and examples are a work-in-progress. ###
