@@ -2,6 +2,7 @@ package org.reldb.wrapd.demo;
 
 import org.reldb.wrapd.demo.generated.*;
 import org.reldb.wrapd.demo.mysql.GetDatabase;
+import org.reldb.wrapd.response.Result;
 
 import java.sql.SQLException;
 
@@ -36,46 +37,62 @@ public class Application {
         void run() throws Exception {
             System.out.println("== ClearABC ==");
             clearABC();
+
             System.out.println("== ClearXYZ ==");
             clearXYZ();
+
             System.out.println("== populateABC ==");
             populateABC();
+
             System.out.println("== populateXYZ ==");
             populateXYZ();
+
             System.out.println("== ABC ==");
             aBC().forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c));
+
             System.out.println("== XYZ (1007) ==");
             xYZ(1007)
                     .forEach(row -> System.out.println("Row: x = " + row.x + " y = " + row.y + " z = " + row.z));
-            System.out.println("== ClearABCWhere (1007) ==");
-            clearABCWhere(1007);
+
+            System.out.println("------------ begin transaction ------------");
+            getDatabase().processTransaction(xact -> {
+                System.out.println("== ClearABCWhere (1007) ==");
+                clearABCWhere(xact, 1007);
+                System.out.println("== ABC ==");
+                aBC(xact).forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c));
+                System.out.println("== ABC - queryForUpdate row.b += 100 ==");
+                aBCForUpdate(xact)
+                        .forEach(row -> {
+                            row.b += 100;
+                            try {
+                                row.update(xact);
+                            } catch (SQLException e) {
+                                System.out.println("Row update failed due to: " + e);
+                            }
+                        });
+                System.out.println("------------ commit transaction ------------");
+                return Result.OK;
+            });
+
             System.out.println("== ABC ==");
             aBC().forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c));
-            System.out.println("== ABC - queryForUpdate row.b += 100 ==");
-            aBCForUpdate()
-                    .forEach(row -> {
-                        row.b += 100;
-                        try {
-                            row.update();
-                        } catch (SQLException e) {
-                            System.out.println("Row update failed due to: " + e);
-                        }
-                    });
-            System.out.println("== ABC ==");
-            aBC().forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c));
+
             System.out.println("== JoinABCXYZ ==");
             joinABCXYZ()
                     .forEach(row -> System.out.println("Row:" +
                             " a = " + row.a + " b = " + row.b + " c = " + row.c +
                             " x = " + row.x + " y = " + row.y + " z = " + row.z));
+
             System.out.println("== JoinABCXYZWhere (1002, 1008) ==");
             joinABCXYZWhere(1002, 1008)
                     .forEach(row -> System.out.println("Row:" +
                             " a = " + row.a + " b = " + row.b + " c = " + row.c +
                             " x = " + row.x + " y = " + row.y + " z = " + row.z));
+
             System.out.println("== ValueOfABCb ==");
             var valueOfABCb = valueOfABCb();
             System.out.println(valueOfABCb.isPresent() ? valueOfABCb.get() : "?");
+
             System.out.println("== ValueOfXYZz ==");
             System.out.println(valueOfXYZz(1007).orElse("?"));
         }
