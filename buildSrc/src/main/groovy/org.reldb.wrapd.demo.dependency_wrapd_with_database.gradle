@@ -1,5 +1,5 @@
 plugins {
-    id 'org.reldb.wrapd.demo.repositories_and_dependencies'
+    id 'org.reldb.wrapd.demo.dependency_wrapd'
 }
 
 dependencies {

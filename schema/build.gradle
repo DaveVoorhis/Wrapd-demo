@@ -1,5 +1,5 @@
 plugins {
-    id 'org.reldb.wrapd.demo.repositories_and_dependencies_with_database'
+    id 'org.reldb.wrapd.demo.dependency_wrapd_with_database'
 }
 
 task runSchemaSetup(type: JavaExec) {
