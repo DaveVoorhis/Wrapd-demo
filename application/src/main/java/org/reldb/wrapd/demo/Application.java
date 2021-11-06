@@ -54,8 +54,9 @@ public class Application {
             xYZ(1007)
                     .forEach(row -> System.out.println("Row: x = " + row.x + " y = " + row.y + " z = " + row.z));
 
-            System.out.println("------------ begin transaction ------------");
-            getDatabase().processTransaction(xact -> {
+            // Demonstrate (and hopefully commit) transaction.
+            System.out.println("------------ start transaction ------------");
+            var result1 = getDatabase().processTransaction(xact -> {
                 System.out.println("== ClearABCWhere (1007) ==");
                 clearABCWhere(xact, 1007);
                 System.out.println("== ABC ==");
@@ -68,11 +69,45 @@ public class Application {
                                 row.update(xact);
                             } catch (SQLException e) {
                                 System.out.println("Row update failed due to: " + e);
+                                throw new RuntimeException(e);
                             }
                         });
-                System.out.println("------------ commit transaction ------------");
                 return Result.OK;
             });
+            System.out.println(result1.isValid()
+                    ? "------------ commit transaction ------------"
+                    : "------------ abort transaction ------------"
+            );
+
+            System.out.println("== ABC ==");
+            aBC().forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c));
+
+            // As above, but abort transaction
+            System.out.println("------------ start transaction ------------");
+            var result2 = getDatabase().processTransaction(xact -> {
+                System.out.println("== ClearABCWhere (1007) ==");
+                clearABCWhere(xact, 1007);
+                System.out.println("== ABC ==");
+                aBC(xact).forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c));
+                System.out.println("== ABC - queryForUpdate row.b += 100 ==");
+                aBCForUpdate(xact)
+                        .forEach(row -> {
+                            row.b += 100;
+                            try {
+                                if (row.a == 1008)
+                                    throw new SQLException("Force failure to abort transaction.");
+                                row.update(xact);
+                            } catch (SQLException e) {
+                                System.out.println("Row update failed due to: " + e);
+                                throw new RuntimeException(e);
+                            }
+                        });
+                return Result.OK;
+            });
+            System.out.println(result2.isValid()
+                    ? "------------ commit transaction ------------"
+                    : "------------ abort transaction ------------"
+            );
 
             System.out.println("== ABC ==");
             aBC().forEach(row -> System.out.println("Row: a = " + row.a + " b = " + row.b + " c = " + row.c));
