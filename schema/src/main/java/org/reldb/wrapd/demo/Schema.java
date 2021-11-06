@@ -46,6 +46,6 @@ public class Schema extends SQLSchema {
         if (result.isOk())
             System.out.println("OK: Schema has been set up.");
         else
-            Response.printError("ERROR in Schema: Schema creation:", result.error);
+            Response.printError("ERROR in Schema set up.", result.error);
     }
 }
