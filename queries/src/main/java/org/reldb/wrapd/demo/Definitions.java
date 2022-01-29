@@ -13,18 +13,9 @@ public class Definitions extends Definer {
 
     void generate() throws Throwable {
         purgeTarget();
-
         defineTable("$$ABC");
         defineTable("$$XYZ", "x = {xValue}", 22);
-        defineQueryForTable("SelectABCWhere", "$$ABC", "SELECT * FROM $$ABC WHERE a = {aValue}", 22);
-        defineQuery("JoinABCXYZ", "SELECT * FROM $$ABC, $$XYZ WHERE x = a");
-        defineQuery("JoinABCXYZWhere", "SELECT * FROM $$ABC, $$XYZ WHERE x = a AND x > {lower} AND x < {higher}", 2, 5);
-        defineUpdate("ClearABC", "DELETE FROM $$ABC");
-        defineUpdate("ClearXYZ", "DELETE FROM $$XYZ");
-        defineUpdate("ClearABCWhere", "DELETE FROM $$ABC WHERE a = {aValue}", 3);
-        defineValueOf("ValueOfABCb", "SELECT b FROM $$ABC");
-        defineValueOf("ValueOfXYZz", "SELECT z FROM $$XYZ WHERE x = {xValue}", 33);
-
+        define("querydefinitions.yaml");
         emitDatabaseAbstractionLayer("DatabaseAbstractionLayer");
     }
 
