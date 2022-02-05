@@ -8,5 +8,5 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.reldb:Wrapd:1.0.1'
+    implementation 'org.reldb:Wrapd:1.0.2'
 }

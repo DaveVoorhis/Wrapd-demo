@@ -2,22 +2,9 @@ package org.reldb.wrapd.demo;
 
 import org.reldb.toolbox.utilities.Directory;
 import org.reldb.wrapd.demo.mysql.GetDatabase;
-import org.reldb.wrapd.sqldb.Database;
 import org.reldb.wrapd.sqldb.Definer;
 
-public class Definitions extends Definer {
-
-    public Definitions(Database database, String codeDirectory, String packageSpec) {
-        super(database, codeDirectory, packageSpec);
-    }
-
-    void generate() throws Throwable {
-        purgeTarget();
-        defineTable("$$ABC");
-        defineTable("$$XYZ", "x = {xValue}", 22);
-        define("querydefinitions.yaml");
-        emitDatabaseAbstractionLayer("DatabaseAbstractionLayer");
-    }
+public class Definitions {
 
     public static void main(String[] args) throws Throwable {
         var db = GetDatabase.getDatabase();
@@ -27,8 +14,10 @@ public class Definitions extends Definer {
             System.out.println("ERROR creating code directory " + codeDirectory);
             return;
         }
-        var sqlDefinitions = new Definitions(db, codeDirectory, codePackage);
-        sqlDefinitions.generate();
+        var sqlDefinitions = new Definer(db, codeDirectory, codePackage);
+        sqlDefinitions.purgeTarget();
+        sqlDefinitions.define("querydefinitions.yaml");
+        sqlDefinitions.emitDatabaseAbstractionLayer("DatabaseAbstractionLayer");
         System.out.println("OK: Queries are ready.");
     }
 

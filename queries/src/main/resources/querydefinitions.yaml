@@ -1,3 +1,10 @@
+defineTable:
+  $$ABC:
+
+  $$XYZ:
+    - x = {xValue}
+    - [22]
+
 defineQueryForTable:
   SelectABCWhere:
   - $$ABC
